@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarization</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<body style="background-color: #e8f2fc !important; font-family: 'Gilmer', sans-serif; margin-top: 1.5rem; margin-bottom: 2rem">
+    
+    <div class="jumbotron jumbotron-fluid" style="color:#202F66 ">
+        <div class="container" style="display:flex; flex-direction: column; justify-content: center; align-items: center">
+            <h1 class="display-4" style="font-weight: 700; font-size: 60px;" >Text Summarization</h1>
+            <p class="lead typewriter">Retrieve the best summary for the text!</p>
+        </div>
+    </div>
+
+    <div class="container" style="display: flex; justify-content: space-around">
+        <div class="ori-title-container" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 20px">
+            <p class="original_title" style="margin-bottom: 0px; margin-right: 20px; color:#202F66 ">Original text</p>
+            <button class="btn btn-danger" type="submit">
+                Words: {% if summary %}{{ len_orig_txt }}{% else %}0{% endif %}
+            </button>
+        </div>
+        <div class="sum-title-container" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 20px">
+            <p class="summary_title" style="margin-bottom: 0px; margin-right: 20px; color:#202F66 ">Summary</p>
+            <button class="btn btn-success" type="submit">
+                Words: {% if summary %}{{ len_summary }}{% else %}0{% endif %}
+            </button>
+        </div>
+    </div>
+
+    <div class="container srt">
+        {% if summary %}
+            <form action="/analyze" method="POST" class="originalTxt col-sm-6">
+                <textarea name="rawtext" class="form-control" rows="12">{{ original_txt }}</textarea>
+                <button class="btn btn-primary" type="submit" style="margin-top: 20px">Submit</button>
+            </form>
+            <form class="summaryTxt col-sm-6">
+                <textarea name="rawtext" class="form-control" rows="12" readonly>{{ summary }}</textarea>
+            </form>
+        {% else %}
+            <form action="/analyze" method="POST" class="originalTxt col-sm-6">
+                <textarea name="rawtext" class="form-control" rows="12" placeholder="Enter your text"></textarea>
+                <button class="btn btn-primary" type="submit" style="margin-top: 20px">Submit</button>
+            </form>
+
+            <form class="summaryTxt col-sm-6">
+                <textarea name="rawtext" class="form-control" rows="12" readonly></textarea>
+            </form>
+        {% endif %}
+    </div>
+
+    <style>
+    .typewriter {
+        color: #202F66;
+        overflow: hidden; 
+        border-right: .10em solid #202F66; 
+        white-space: nowrap; 
+        margin: 0 auto; 
+        letter-spacing: .10em; 
+        animation: 
+          typing 5s steps(30, end) infinite,
+          blink-caret 1s step-end infinite;
+      }
+      
+      @keyframes typing {
+        from { width: 0 }
+        to { width: 40% }
+      }
+      
+      @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: #202F66 }
+      }
+    </style>      
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
